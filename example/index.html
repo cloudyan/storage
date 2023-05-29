@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Storage</title>
+</head>
+<body>
+  <!-- <script type="module" src="../src/index.js"></script> -->
+  <script type="module">
+    // 使用 module 内部 import 不能省略后缀 `.js`
+    import Storage from '../esm/index.js'
+    // import { queryStore, longStore } from '../src/storage.js'
+
+    // queryStore.set({
+    //   p_s: 123,
+    //   p_u: 456,
+    //   p_c: 'weapp',
+    //   custom: 123,
+    // })
+    // console.log(queryStore.get())
+
+    const sleep = (t) => new Promise(resolve => setTimeout(resolve, t, 'done'))
+
+    const storage = new Storage({
+      storageKey: 'web_global',
+    })
+
+    console.log(storage.get())
+    console.log(storage.set('user', {id: 123, name: 'xiaohan123'}, 5))
+    console.log(storage.get())
+
+    console.log(storage.setAll({
+      user: {id: 123, name: 'xiaohan123'},
+      user2: {id: 456, name: 'xiaohan456'},
+    }, {
+      user: 10,
+      user2: 5,
+    }))
+    console.log(storage.get())
+
+    sleep(5000).then(res => {
+      console.log(storage.get())
+    })
+
+  </script>
+</body>
+</html>
